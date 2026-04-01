@@ -5,7 +5,7 @@ import random
 # Smallest number that can appear in a generated question.
 MIN_NUM = 1
 # Increase the quiz difficulty after this many questions.
-DIFFICULTY_STEP = 3
+DIFFICULTY_STEP = 5
 # Number range growth for addition and subtraction questions.
 ADD_SUB_RANGE = 10
 # Number range growth for multiplication and division questions.
