@@ -1,6 +1,5 @@
 import random
 
-
 MIN_NUM = 1
 DIFFICULTY_STEP = 3
 ADD_SUB_RANGE = 10
