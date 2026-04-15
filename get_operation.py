@@ -1,16 +1,22 @@
 """Operation choice helper for the math quiz assessment."""
 
 
-def get_operation(question, valid_operations):
-    """Ask for a quiz operation and return a valid choice."""
+def string_check(question, valid_options, error):
+    """Ask for a text response and check it is valid."""
 
     while True:
         response = input(question).strip().lower()
 
-        if response in valid_operations:
+        if response in valid_options:
             return response
-        else:
-            print("Invalid choice. Try again.")
+
+        print(error)
+
+
+def get_operation(question, valid_operations):
+    """Ask for a quiz operation and return a valid choice."""
+
+    return string_check(question, valid_operations, "Invalid choice. Try again.")
 
 operations = ["+", "-", "*", "/", "mix"]
 choice = get_operation("Choose operation (+, -, *, / or mix): ", operations)

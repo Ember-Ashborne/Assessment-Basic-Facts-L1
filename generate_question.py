@@ -16,23 +16,20 @@ def generate_question(operation, difficulty):
     else:
         max_range = MIN_NUM + difficulty * ADD_SUB_RANGE
 
+    num1 = random.randint(MIN_NUM, max_range)
+    num2 = random.randint(MIN_NUM, max_range)
+
     if operation == "+":
-        num1 = random.randint(MIN_NUM, max_range)
-        num2 = random.randint(MIN_NUM, max_range)
         correct_answer = num1 + num2
         question = f"{num1} + {num2}"
 
     elif operation == "-":
-        num1 = random.randint(MIN_NUM, max_range)
-        num2 = random.randint(MIN_NUM, max_range)
         if num2 > num1:
             num1, num2 = num2, num1
         correct_answer = num1 - num2
         question = f"{num1} - {num2}"
 
     elif operation == "*":
-        num1 = random.randint(MIN_NUM, max_range)
-        num2 = random.randint(MIN_NUM, max_range)
         correct_answer = num1 * num2
         question = f"{num1} * {num2}"
 
