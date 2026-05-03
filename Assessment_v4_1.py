@@ -12,18 +12,6 @@ def string_check(question, valid_options, error):
         print(error)
 
 
-def yes_no(question):
-    """Ask a yes/no question and return 'yes' or 'no'."""
-
-    response = string_check(question, ["yes", "no", "y", "n"], "Please enter yes / no")
-
-    if response == "y":
-        return "yes"
-    if response == "n":
-        return "no"
-    return response
-
-
 def int_check(question, low, high=None):
     """Prompt user for an integer >= low and <= high (if provided)."""
 
@@ -221,10 +209,17 @@ VALID_OPERATIONS = ["+", "-", "*", "/", "mix"]
 
 make_statement("Welcome to the Math Quiz", "=")
 
+# Keep offering new quizzes until the user chooses to stop.
 play_again = "yes"
 
 while play_again == "yes":
-    if yes_no("Do you want to see the instructions? ") == "yes":
+    # Offer instructions before each new quiz setup.
+    response = string_check(
+        "Do you want to see the instructions? ",
+        ["yes", "no", "y", "n"],
+        "Please enter yes / no",
+    )
+    if response in ["yes", "y"]:
         instructions()
 
     print()
@@ -236,13 +231,28 @@ while play_again == "yes":
         3,
     )
 
+    # Double-check if the chosen settings may make the quiz too easy.
     if num_questions < 5 and difficulty <= 2:
         print("This quiz might be too easy or too short.")
-        if yes_no("Do you want to continue anyway? ") == "no":
+        response = string_check(
+            "Do you want to continue anyway? ",
+            ["yes", "no", "y", "n"],
+            "Please enter yes / no",
+        )
+        if response in ["no", "n"]:
             print("Quiz setup cancelled.")
-            play_again = yes_no("Do you want to set up another quiz? ")
+            play_again = string_check(
+                "Do you want to set up another quiz? ",
+                ["yes", "no", "y", "n"],
+                "Please enter yes / no",
+            )
+            if play_again == "y":
+                play_again = "yes"
+            elif play_again == "n":
+                play_again = "no"
             continue
 
+    # Get the operation mode, then run the quiz.
     operation = string_check(
         "Choose operation (+, -, *, / or mix): ",
         VALID_OPERATIONS,
@@ -250,6 +260,15 @@ while play_again == "yes":
     )
     run_quiz(num_questions, difficulty, operation)
 
-    play_again = yes_no("\nDo you want to play again? ")
+    # Ask whether the user wants to set up and play another quiz.
+    play_again = string_check(
+        "\nDo you want to play again? ",
+        ["yes", "no", "y", "n"],
+        "Please enter yes / no",
+    )
+    if play_again == "y":
+        play_again = "yes"
+    elif play_again == "n":
+        play_again = "no"
 
 make_statement("Thanks for playing", "=")
